@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secure chat: log in</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="login">
+  <section class="hero">
+    <h1 class="serif">Say it privately.</h1>
+    <p>Chat where only you and your friend can read what you write. Not even the server can.</p>
+    <div class="steps">
+      <div class="step"><b>1</b><div><span>Your browser makes your keys</span><small>The secret half never leaves your device.</small></div></div>
+      <div class="step"><b>2</b><div><span>Every message gets a new key</span><small>Steal one key and the old messages stay locked.</small></div></div>
+      <div class="step"><b>3</b><div><span>The server only sees scrambled bytes</span><small>It passes the locked boxes along.</small></div></div>
+    </div>
+  </section>
+  <section class="formside">
+    <div class="authcard">
+      <div class="tabs" role="tablist"><button id="t-login" class="on" role="tab">Log in</button><button id="t-reg" role="tab">Create account</button></div>
+      <h2 id="ttl" class="serif">Welcome back</h2>
+      <div><label for="u">Username</label><input type="text" id="u" autocomplete="username"></div>
+      <div><label for="p">Password</label><input type="password" id="p" autocomplete="current-password"></div>
+      <button id="go">Log in</button>
+      <p id="authmsg" role="alert"></p>
+    </div>
+  </section>
+</div>
+<script src="login.js"></script></body></html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secure chat</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="shell">
+<aside class="side">
+  <div class="brand"><i aria-hidden="true">&#128274;</i>Secure chat</div>
+  <nav aria-label="Pages"><a href="#dashboard" data-view="dashboard"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>Dashboard</a><a href="#chat" data-view="chat"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/></svg>Chat</a><a href="#profile" data-view="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</a><a href="#settings" data-view="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Settings</a></nav>
+  <div class="who"><div class="chip"><div class="av" id="av"></div><strong id="me"></strong></div><button id="logout">Log out</button></div>
+</aside>
+<main class="main">
+  <div class="view" id="v-dashboard">
+    <div class="banner"><div><h2 id="welcome" class="serif"></h2><p>Your keys were made in this browser tab and the server signed your certificate.</p></div>
+      <div class="fpchip">Your key fingerprint<code id="fp-hero">...</code></div></div>
+    <div class="stats">
+      <div class="card stat"><span id="s-sent">0</span><small>messages sent</small></div>
+      <div class="card stat"><span id="s-recv">0</span><small>messages received</small></div>
+      <div class="card stat"><span id="s-rej">0</span><small>messages rejected</small></div>
+      <div class="card stat"><span id="s-online">0</span><small>people online</small></div>
+    </div>
+    <div class="card"><h2>Recent activity</h2><ul id="activity" class="plain"></ul></div>
+    <details><summary>What is happening?</summary><ol>
+    <li>When this page opens, your browser makes a fresh key pair. The server signs your public key so nobody can swap in a fake one.</li>
+    <li>You and your friend combine your own secret key with the other&rsquo;s public key and get the same starting secret, without sending it.</li>
+    <li>Each message gets a one-time key from a one-way chain. Old keys are deleted.</li>
+    <li>When the conversation changes direction, a fresh key pair is mixed in, which locks out anyone who stole a key earlier.</li>
+    <li>AES-GCM encrypts the message and detects any change to it or its header.</li>
+    <li>The message key is also encrypted for the government&rsquo;s public key and placed in the header.</li></ol></details>
+  </div>
+  <div class="view" id="v-chat" hidden>
+    <h2 class="page serif">Chat</h2><p id="status" class="sub">Pick someone from the list to start.</p>
+    <div class="cols">
+      <aside class="card"><h2>People</h2><ul id="users"></ul></aside>
+      <section class="card conv"><h2 id="with">Pick someone to chat with</h2><div class="log" id="log" aria-live="polite"></div>
+        <div class="compose"><input type="text" id="msg" placeholder="Write a message" aria-label="Message" disabled><button id="send" disabled>Send</button></div>
+        <label class="tamper"><input type="checkbox" id="tamper"> Change my next message in transit (attack demo)</label></section>
+      <section class="wirepanel" id="wirepanel"><h2>What the network sees</h2><p class="sub">Every message the server carried. The government can unlock any of them.</p><div id="wire"></div></section>
+    </div>
+  </div>
+  <div class="view" id="v-profile" hidden>
+    <h2 class="page serif">Profile</h2><p class="sub">Username: <strong id="p-user"></strong>. Member since <span id="p-since"></span>.</p>
+    <div class="card form">
+      <label for="p-display">Display name</label><input type="text" id="p-display" maxlength="30">
+      <label for="p-bio">About me</label><textarea id="p-bio" rows="3" maxlength="200"></textarea>
+      <div class="btns"><button id="p-save">Save profile</button></div><p id="p-msg" role="status"></p>
+      <h2>Your key fingerprint</h2>
+      <p class="sub">A short code made from your public key. Two people can read theirs out loud to check that nobody swapped a key.</p>
+      <code id="p-fp" class="fp"></code>
+    </div>
+  </div>
+  <div class="view" id="v-settings" hidden>
+    <h2 class="page serif">Settings</h2><p class="sub">Look and account.</p>
+    <div class="card form">
+      <label for="s-theme">Theme</label>
+      <select id="s-theme"><option value="system">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select>
+      <label class="check"><input type="checkbox" id="s-wire" checked> Show the network panel in Chat</label>
+      <h2>Change password</h2>
+      <label for="s-old">Current password</label><input type="password" id="s-old" autocomplete="current-password">
+      <label for="s-new">New password (at least 6 characters)</label><input type="password" id="s-new" autocomplete="new-password">
+      <div class="btns"><button id="s-pass">Change password</button></div><p id="s-msg" role="status"></p>
+    </div>
+  </div>
+</main>
+</div>
+<script src="core.js"></script><script src="app.js"></script></body></html>
